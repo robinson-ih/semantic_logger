@@ -4,6 +4,13 @@ module SemanticLogger
       # Default text log format
       #  Generates logs of the form:
       #    2011-07-19 14:36:15.660235 D [1149:ScriptThreadProcess] Rails -- Hello World
+      
+      Format = "%s, [%s#%d] %5s -- %s: %s\n"
+      
+      def printlog(severity, time, progname, msg)
+        Format % [severity[0..0], time, $$, severity, progname, msg]
+      end
+
       def call(log, logger)
         # Date & time
         message = time_format.nil? ? '' : "#{format_time(log.time)} "
